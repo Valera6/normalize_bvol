@@ -26,8 +26,8 @@ def get1000points(t_iso):
 
 def main():
 	dict_buffer = {}
-	# t_iso = Timestamp(time.time()).Isoformat
-	t_iso = "2014-11-07T20:55:00.000Z"
+	t_iso = Timestamp(time.time()).Isoformat
+	# t_iso = "2014-11-07T20:55:00.000Z"
 	
 	try:
 		for i in tqdm(range(10_000)):
@@ -35,8 +35,8 @@ def main():
 			for entry in data['quotes']:
 				dict_buffer[entry['timestamp']] = entry['price']
 			t_iso = data['quotes'][-1]['timestamp']
-			assert len(data) > 100, "Seems like we're finished"
-			
+			assert len(data['quotes']) > 100, "Seems like we're finished"
+   
 			if int(data['rate-limit']['remaining']) < 2:
 				sleep_duration = int(data['rate-limit']['reset-unix-s']) - time.time()
 				time.sleep(max(1, sleep_duration))
